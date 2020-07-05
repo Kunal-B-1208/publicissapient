@@ -1,0 +1,36 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        
+        <th scope="col">Comments</th>
+        <th scope="col">Vote Count</th>
+        <th scope="col">UpVote</th>
+        <th scope="col">News Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let story of stories;">
+           <td class="title">{{story.num_comments}}</td> 
+           <td class="title">{{story.points}}</td> 
+           <td>1 </td> 
+           <td> 
+            <a href="{{story.url}}" 
+               class="title">{{story.title}}</a>
+            <span class="siteLink"> 
+                (<a href="{{story.url}}">
+                    <span class="sitestr">{{story.url | getHostFromUrl}}</span></a>)
+            </span>
+            <span class="siteLink">by <b> 
+                    <a href="" class="author"> {{story.author}} </a>
+                    </b> {{story.created_at | getHoursFromDate}} [ <a href="" class="author"> Hide </a> ] </span>
+            
+           </td> 
+      </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td> <button type="button"  class="btn btn-link" (click)="getPrev()" [disabled]="IsPrevDisable"><span> Prev </span></button></td>
+            <td> <button type="button"  class="btn btn-link" (click)="getNext()" [disabled]="IsNextDisable"><span> Next </span></button></td>
+        </tr>
+    </tfoot>
+  </table>
