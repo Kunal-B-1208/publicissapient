@@ -11,7 +11,7 @@ import { throwError } from 'rxjs';
 })
 export class HackerNewsService {
  
-   private apiUrl: string= 'http://hn.algolia.com/api/v1/';
+   private apiUrl: string= 'https://hn.algolia.com/api/v1/';
    private getStoryUrl: string = 'search?tags=story&page=#pageNum&hitsPerPage=#pageSize';
    private getCommentUrl:string ='search?tags=comment,story_#story&page=#pageNum&hitsPerPage=#pageSize'
    private mapData : Map<string,number>;
