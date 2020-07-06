@@ -12,7 +12,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class GetHostFromUrl implements PipeTransform {
 
   transform(value : string): string {
-    var url = new URL(value);
-    return url.host;
+    
+    if(value != null){
+      var url = new URL(value);
+      return url.host;
+    }
+    return "";
+    
   }
 }

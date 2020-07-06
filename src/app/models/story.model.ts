@@ -6,7 +6,7 @@ export class StoryDetails
     public url: string;
     public author : string;
     public points :number;
-    public story_text: string;
+    //public story_text: string;
     public num_comments: number;
     public objectID: string;
     

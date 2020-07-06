@@ -1,7 +1,8 @@
-<table class="table table-striped">
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
     <thead>
-      <tr>
-        
+      <tr class="headerTr">
         <th scope="col">Comments</th>
         <th scope="col">Vote Count</th>
         <th scope="col">UpVote</th>
@@ -10,19 +11,24 @@
     </thead>
     <tbody>
       <tr *ngFor="let story of stories;">
-           <td class="title">{{story.num_comments}}</td> 
+           <td ><a href="#"class="title">{{story.num_comments}} </a></td> 
            <td class="title">{{story.points}}</td> 
-           <td>1 </td> 
+           <td> <a href="#" (click)="UpVote(story.objectID)">
+                  <div class="triangle-up"></div>
+                </a> 
+           </td> 
            <td> 
-            <a href="{{story.url}}" 
-               class="title">{{story.title}}</a>
+            <a href="{{story.url}}" target="_blank"
+               class="title">{{story.title}}
+            </a>
             <span class="siteLink"> 
-                (<a href="{{story.url}}">
+                (<a href="{{story.url}}" target="_blank">
                     <span class="sitestr">{{story.url | getHostFromUrl}}</span></a>)
             </span>
-            <span class="siteLink">by <b> 
-                    <a href="" class="author"> {{story.author}} </a>
-                    </b> {{story.created_at | getHoursFromDate}} [ <a href="" class="author"> Hide </a> ] </span>
+            <span class="siteLink">by 
+                  <b><a href="#" class="author"> {{story.author}} </a></b> 
+                  {{story.created_at | getHoursFromDate}}  [ <a href="#" class="author" (click) ="Hide(story)"> Hide </a> ] 
+            </span>
             
            </td> 
       </tr>
@@ -30,7 +36,11 @@
     <tfoot>
         <tr>
             <td> <button type="button"  class="btn btn-link" (click)="getPrev()" [disabled]="IsPrevDisable"><span> Prev </span></button></td>
+            <td> <button type="button"  class="btn"> <span> Page Number : {{pageNumber}} </span></button></td>
             <td> <button type="button"  class="btn btn-link" (click)="getNext()" [disabled]="IsNextDisable"><span> Next </span></button></td>
         </tr>
     </tfoot>
   </table>
+</div>
+
+<app-hacker-news-chart [storyDetail] ="stories"></app-hacker-news-chart>

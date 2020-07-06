@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HackerNewsService } from 'src/app/services/hacker-news.service';
 import { StoryDetails, Pagination } from 'src/app/models/story.model';
+import { Subject } from 'rxjs';
+import { DataPassingService } from 'src/app/services/dataPassing.service';
 
 @Component({
   selector: 'app-hacker-news-dash-board',
@@ -10,13 +12,14 @@ import { StoryDetails, Pagination } from 'src/app/models/story.model';
 export class HackerNewsDashBoardComponent implements OnInit {
 
   stories : StoryDetails[]= [];
-  private pageNumber :number = 1;
+  
+  pageNumber :number = 1;
   private pageSize : number = 10;
   private pagination : Pagination = new Pagination();
   IsPrevDisable= true;
   IsNextDisable= false;
-
-  constructor(private service : HackerNewsService) { 
+  
+  constructor(private service : HackerNewsService, private dataService : DataPassingService) { 
     
   }
 
@@ -26,7 +29,7 @@ export class HackerNewsDashBoardComponent implements OnInit {
 
   getAllStories()
   {
-    debugger;
+    
     this.service.getStory(this.pageNumber,this.pageSize).subscribe(x => 
       {
         this.stories =[];
@@ -45,11 +48,16 @@ export class HackerNewsDashBoardComponent implements OnInit {
   else{
     this.IsPrevDisable = false;
     this.pageNumber -= 1;
+
+    if(this.pageNumber ==1){
+      this.IsPrevDisable = true;
+    }
+
   }
     this.getAllStories();
   }
   getNext(){
-    debugger;
+    
         if(this.pagination.nbPages == this.pageNumber){
             this.IsNextDisable = true;
         }
@@ -60,6 +68,30 @@ export class HackerNewsDashBoardComponent implements OnInit {
         }
         this.getAllStories();
 
+  }
+
+  UpVote(id : string){
+    debugger;
+
+    this.service.saveVotesData(id,1);
+    var story= this.getStoryById(id);
+    if(story != null && story != undefined){
+      story.points += 1;
+      
+      //this.updatedStory = story;
+      this.dataService.changeMessage(story);
+    }
+
+  }
+
+  Hide(id:StoryDetails){
+    
+      this.service.HideStory(id.objectID);
+      this.stories.splice(this.stories.indexOf(id),1);
+  }
+
+  getStoryById(id:string){
+    return this.stories.find(x=> x.objectID == id)
   }
 
 }
