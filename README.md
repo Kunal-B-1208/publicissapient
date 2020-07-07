@@ -21,7 +21,7 @@ Project Components :
     * Feature Module :
         This module consist of two compoents i.e
         1. Hacker-News-Dashboard Component : 
-       Responsible for loading hacker-news API related data in repective output format. This is parent component holding chil componets references. Createc 2 cutome pipes for data representation.
+       Responsible for loading hacker-news API related data in repective output format. This is parent component holding chil componets references. Create 2 custome pipes for data representation.
          1. hours from date : In this converted story created date to current date and time diffrences.
          2. host from URL : In thids geeting host name only from  stroy-url.
 
