@@ -1,3 +1,4 @@
+import { StoryType } from '../enums/data.enums';
 
 export class StoryDetails
 {
@@ -42,4 +43,9 @@ export class CommentDetails
 export class CommentOutput extends Pagination
 {
     public commentDetail: CommentDetails[];
+}
+
+export class DataSender{
+    public data :any;
+    public typeOfData : StoryType
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HackerNewsService } from 'src/app/services/hacker-news.service';
-import { StoryDetails, Pagination } from 'src/app/models/story.model';
+import { StoryDetails, Pagination, DataSender } from 'src/app/models/story.model';
 import { Subject } from 'rxjs';
 import { DataPassingService } from 'src/app/services/dataPassing.service';
+import { StoryType } from 'src/app/enums/data.enums';
 
 @Component({
   selector: 'app-hacker-news-dash-board',
@@ -18,9 +19,9 @@ export class HackerNewsDashBoardComponent implements OnInit {
   private pagination : Pagination = new Pagination();
   IsPrevDisable= true;
   IsNextDisable= false;
-  
+  private dataSender : DataSender;
   constructor(private service : HackerNewsService, private dataService : DataPassingService) { 
-    
+    this.dataSender = new DataSender();
   }
 
   ngOnInit(): void {
@@ -32,12 +33,16 @@ export class HackerNewsDashBoardComponent implements OnInit {
     
     this.service.getStory(this.pageNumber,this.pageSize).subscribe(x => 
       {
+        debugger;
         this.stories =[];
         this.stories = x.hits;
         this.pagination.page = x.page;
         this.pagination.nbPages = x.nbPages;
         this.pagination.hitsPerPage = x.hitsPerPage;
-
+        
+        this.dataSender.data = this.stories;
+        this.dataSender.typeOfData = StoryType.Collecion;
+        this.dataService.changeMessage(this.dataSender);
       });
   }
 
@@ -79,15 +84,21 @@ export class HackerNewsDashBoardComponent implements OnInit {
       story.points += 1;
       
       //this.updatedStory = story;
-      this.dataService.changeMessage(story);
+      this.dataSender.data = story;
+      this.dataSender.typeOfData = StoryType.Update;
+      this.dataService.changeMessage(this.dataSender);
     }
 
   }
 
-  Hide(id:StoryDetails){
+  Hide(story:StoryDetails){
     
-      this.service.HideStory(id.objectID);
-      this.stories.splice(this.stories.indexOf(id),1);
+      this.service.HideStory(story.objectID);
+      this.stories.splice(this.stories.indexOf(story),1);
+      
+      this.dataSender.data = story;
+      this.dataSender.typeOfData = StoryType.Hide;
+      this.dataService.changeMessage(this.dataSender);
   }
 
   getStoryById(id:string){

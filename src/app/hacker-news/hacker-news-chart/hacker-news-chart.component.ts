@@ -13,9 +13,10 @@ import {
   ApexStroke,
   
 } from "ng-apexcharts";
-import { StoryOutput, StoryDetails } from 'src/app/models/story.model';
+import { StoryOutput, StoryDetails, DataSender } from 'src/app/models/story.model';
 import { BehaviorSubject } from 'rxjs';
 import { DataPassingService } from 'src/app/services/dataPassing.service';
+import { StoryType } from 'src/app/enums/data.enums';
 
 interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -40,20 +41,12 @@ interface ChartOptions {
 })
 export class HackerNewsChartComponent implements OnInit ,OnChanges {
 
+  data : StoryDetails[];
   
-  private _storyDetail = new BehaviorSubject<StoryDetails[]>([]);
-
-  private data : StoryDetails[]= [];
-  @Input()  set storyDetail(value){
-    this._storyDetail.next(value);
-  }
-  get storyDetail() {
-    return this._storyDetail.getValue();
-  }
 
   public chartOptions: ChartOptions;
   constructor(private dataService : DataPassingService) {
-    
+    this.data = [];
   }
   ngOnChanges(changes: SimpleChanges): void {
     debugger;
@@ -63,27 +56,47 @@ export class HackerNewsChartComponent implements OnInit ,OnChanges {
   }
 
   ngOnInit(): void {
+
     this.loadChart();
-
-    this._storyDetail.subscribe(x => {
-      this.data = x;
-      this.loadCategory();
-      this.loadChartData();
-    });
-
-
+    
     this.dataService.currentMessage.subscribe(message => {
-        debugger;  
-      var x = <StoryDetails>message;
-        var story = this.data.find(x=> x.objectID== x.objectID);
-        if(story != null && story != undefined){
-          story = x;
-          this.loadChartData();
+       if(message != null){
+         this.dataProcessor(message);
         }
     })
     
   }
   
+  dataProcessor(message : DataSender){
+    debugger;
+    switch(message.typeOfData){
+      case StoryType.Update:
+
+        var x = <StoryDetails>message.data;
+        var story = this.data.find(x=> x.objectID== x.objectID);
+        if(story != null && story != undefined){
+            story = x;
+            this.loadChartData();
+        }
+
+        break;
+      case StoryType.Collecion:
+        this.data = <StoryDetails[]>message.data;
+        this.loadCategory();
+        this.loadChartData();
+        break;
+      case StoryType.Hide:
+        var x = <StoryDetails>message.data;
+        this.data.splice(this.data.indexOf(x),1);
+        this.loadCategory();
+        this.loadChartData();
+        break;
+        default:
+          break
+    }
+
+  }
+
   loadChartData(){
     debugger;
     this.chartOptions.series = [{
