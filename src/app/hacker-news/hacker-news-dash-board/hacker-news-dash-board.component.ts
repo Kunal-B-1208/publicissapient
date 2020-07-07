@@ -33,7 +33,7 @@ export class HackerNewsDashBoardComponent implements OnInit {
     
     this.service.getStory(this.pageNumber,this.pageSize).subscribe(x => 
       {
-        debugger;
+        
         this.stories =[];
         this.stories = x.hits;
         this.pagination.page = x.page;
@@ -76,7 +76,7 @@ export class HackerNewsDashBoardComponent implements OnInit {
   }
 
   UpVote(id : string){
-    debugger;
+    
 
     this.service.saveVotesData(id,1);
     var story= this.getStoryById(id);

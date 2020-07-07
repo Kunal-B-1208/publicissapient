@@ -114,7 +114,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _hacker_news_hacker_news_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./hacker-news/hacker-news.module */ "./src/app/hacker-news/hacker-news.module.ts");
 /* harmony import */ var _services_hacker_news_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/hacker-news.service */ "./src/app/services/hacker-news.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _services_dataPassing_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/dataPassing.service */ "./src/app/services/dataPassing.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
 
 
 
@@ -126,15 +128,15 @@ __webpack_require__.r(__webpack_exports__);
 class AppModule {
 }
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]] });
-AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_5__["HackerNewsService"]], imports: [[
+AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_5__["HackerNewsService"], _services_dataPassing_service__WEBPACK_IMPORTED_MODULE_6__["DataPassingService"]], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
             _hacker_news_hacker_news_module__WEBPACK_IMPORTED_MODULE_4__["HackerNewsModule"]
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
         _hacker_news_hacker_news_module__WEBPACK_IMPORTED_MODULE_4__["HackerNewsModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
@@ -145,13 +147,33 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                     _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
-                    _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
+                    _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
                     _hacker_news_hacker_news_module__WEBPACK_IMPORTED_MODULE_4__["HackerNewsModule"]
                 ],
-                providers: [_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_5__["HackerNewsService"]],
+                providers: [_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_5__["HackerNewsService"], _services_dataPassing_service__WEBPACK_IMPORTED_MODULE_6__["DataPassingService"]],
                 bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
             }]
     }], null, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/enums/data.enums.ts":
+/*!*************************************!*\
+  !*** ./src/app/enums/data.enums.ts ***!
+  \*************************************/
+/*! exports provided: StoryType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StoryType", function() { return StoryType; });
+var StoryType;
+(function (StoryType) {
+    StoryType[StoryType["Collecion"] = 1] = "Collecion";
+    StoryType[StoryType["Update"] = 2] = "Update";
+    StoryType[StoryType["Hide"] = 3] = "Hide";
+})(StoryType || (StoryType = {}));
 
 
 /***/ }),
@@ -167,116 +189,78 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HackerNewsChartComponent", function() { return HackerNewsChartComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var node_modules_ng_apexcharts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! node_modules/ng-apexcharts */ "./node_modules/ng-apexcharts/__ivy_ngcc__/fesm2015/ng-apexcharts.js");
+/* harmony import */ var src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/data.enums */ "./src/app/enums/data.enums.ts");
+/* harmony import */ var src_app_services_dataPassing_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/dataPassing.service */ "./src/app/services/dataPassing.service.ts");
+/* harmony import */ var node_modules_ng_apexcharts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! node_modules/ng-apexcharts */ "./node_modules/ng-apexcharts/__ivy_ngcc__/fesm2015/ng-apexcharts.js");
 
 
 
 
-const _c0 = ["chart"];
+
 ;
 class HackerNewsChartComponent {
-    constructor() {
-        this._storyDetail = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"]([]);
+    constructor(dataService) {
+        this.dataService = dataService;
         this.data = [];
     }
-    set storyDetail(value) {
-        this._storyDetail.next(value);
-    }
-    get storyDetail() {
-        return this._storyDetail.getValue();
+    ngOnChanges(changes) {
+        debugger;
+        if (changes['updatedStory']) {
+            console.log(changes['updatedStory'].currentValue);
+        }
     }
     ngOnInit() {
         this.loadChart();
-        this._storyDetail.subscribe(x => {
-            this.data = x;
-            this.loadChartData();
+        this.dataService.currentMessage.subscribe(message => {
+            if (message != null) {
+                this.dataProcessor(message);
+            }
         });
+    }
+    dataProcessor(message) {
+        debugger;
+        switch (message.typeOfData) {
+            case src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_1__["StoryType"].Update:
+                var x = message.data;
+                var story = this.data.find(x => x.objectID == x.objectID);
+                if (story != null && story != undefined) {
+                    story = x;
+                    this.loadChartData();
+                }
+                break;
+            case src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_1__["StoryType"].Collecion:
+                this.data = message.data;
+                this.loadCategory();
+                this.loadChartData();
+                break;
+            case src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_1__["StoryType"].Hide:
+                var x = message.data;
+                this.data.splice(this.data.indexOf(x), 1);
+                this.loadCategory();
+                this.loadChartData();
+                break;
+            default:
+                break;
+        }
     }
     loadChartData() {
         debugger;
         this.chartOptions.series = [{
                 data: this.data.map(a => a.points)
             }];
+    }
+    loadCategory() {
         this.chartOptions.xaxis = {
             categories: this.data.map(a => a.objectID)
         };
     }
     loadChart() {
-        // this.chartOptions = {
-        //   series: [
-        //     {
-        //       name: "votes-story",
-        //       data: []
-        //     },
-        //   ],
-        //   chart: {
-        //     height: 350,
-        //     type: "line",
-        //     dropShadow: {
-        //       enabled: true,
-        //       color: "#000",
-        //       top: 18,
-        //       left: 7,
-        //       blur: 10,
-        //       opacity: 0.2
-        //     },
-        //     toolbar: {
-        //       show: false
-        //     }
-        //   },
-        //   colors: ["#77B6EA"],
-        //   dataLabels: {
-        //     enabled: true
-        //   },
-        //   stroke: {
-        //     curve: "smooth"
-        //   },
-        //   title: {
-        //     text: "Hacker-News-Chart",
-        //     align: "left"
-        //   },
-        //   grid: {
-        //     borderColor: "#e7e7e7",
-        //     row: {
-        //       colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-        //       opacity: 0.5
-        //     }
-        //   },
-        //   markers: {
-        //     size: 1
-        //   },
-        //   xaxis: {
-        //     categories: [],
-        //     title: {
-        //       text: "Id"
-        //     }
-        //   },
-        //   yaxis: {
-        //     title: {
-        //       text: "Votes"
-        //     },
-        //     min: 5,
-        //     max: 40
-        //   },
-        //   legend: {
-        //     position: "top",
-        //     horizontalAlign: "right",
-        //     floating: true,
-        //     offsetY: -25,
-        //     offsetX: -5
-        //   }
-        // };  
         this.chartOptions = {
             series: [
                 {
-                    name: "High - 2013",
-                    data: [28, 29, 33, 36, 32, 32, 33]
+                    name: "votes-story",
+                    data: []
                 },
-                {
-                    name: "Low - 2013",
-                    data: [12, 11, 14, 18, 17, 13, 13]
-                }
             ],
             chart: {
                 height: 350,
@@ -293,7 +277,7 @@ class HackerNewsChartComponent {
                     show: false
                 }
             },
-            colors: ["#77B6EA", "#545454"],
+            colors: ["#77B6EA"],
             dataLabels: {
                 enabled: true
             },
@@ -301,7 +285,7 @@ class HackerNewsChartComponent {
                 curve: "smooth"
             },
             title: {
-                text: "Average High & Low Temperature",
+                text: "Hacker-News-Chart",
                 align: "left"
             },
             grid: {
@@ -315,17 +299,15 @@ class HackerNewsChartComponent {
                 size: 1
             },
             xaxis: {
-                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                categories: [],
                 title: {
-                    text: "Month"
+                    text: "Id"
                 }
             },
             yaxis: {
                 title: {
-                    text: "Temperature"
+                    text: "Votes"
                 },
-                min: 5,
-                max: 40
             },
             legend: {
                 position: "top",
@@ -337,20 +319,15 @@ class HackerNewsChartComponent {
         };
     }
 }
-HackerNewsChartComponent.ɵfac = function HackerNewsChartComponent_Factory(t) { return new (t || HackerNewsChartComponent)(); };
-HackerNewsChartComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HackerNewsChartComponent, selectors: [["app-hacker-news-chart"]], viewQuery: function HackerNewsChartComponent_Query(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
-    } if (rf & 2) {
-        var _t;
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.chart = _t.first);
-    } }, inputs: { storyDetail: "storyDetail" }, decls: 2, vars: 11, consts: [["id", "chart"], [3, "series", "chart", "xaxis", "yaxis", "title", "stroke", "colors", "dataLabels", "legend", "markers", "grid"]], template: function HackerNewsChartComponent_Template(rf, ctx) { if (rf & 1) {
+HackerNewsChartComponent.ɵfac = function HackerNewsChartComponent_Factory(t) { return new (t || HackerNewsChartComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_dataPassing_service__WEBPACK_IMPORTED_MODULE_2__["DataPassingService"])); };
+HackerNewsChartComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HackerNewsChartComponent, selectors: [["app-hacker-news-chart"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 2, vars: 11, consts: [["id", "chart"], [3, "series", "chart", "xaxis", "yaxis", "title", "stroke", "colors", "dataLabels", "legend", "markers", "grid"]], template: function HackerNewsChartComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "apx-chart", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("series", ctx.chartOptions.series)("chart", ctx.chartOptions.chart)("xaxis", ctx.chartOptions.xaxis)("yaxis", ctx.chartOptions.yaxis)("title", ctx.chartOptions.title)("stroke", ctx.chartOptions.stroke)("colors", ctx.chartOptions.colors)("dataLabels", ctx.chartOptions.dataLabels)("legend", ctx.chartOptions.legend)("markers", ctx.chartOptions.markers)("grid", ctx.chartOptions.grid);
-    } }, directives: [node_modules_ng_apexcharts__WEBPACK_IMPORTED_MODULE_2__["ChartComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hhY2tlci1uZXdzL2hhY2tlci1uZXdzLWNoYXJ0L2hhY2tlci1uZXdzLWNoYXJ0LmNvbXBvbmVudC5jc3MifQ== */"] });
+    } }, directives: [node_modules_ng_apexcharts__WEBPACK_IMPORTED_MODULE_3__["ChartComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hhY2tlci1uZXdzL2hhY2tlci1uZXdzLWNoYXJ0L2hhY2tlci1uZXdzLWNoYXJ0LmNvbXBvbmVudC5jc3MifQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HackerNewsChartComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -358,12 +335,7 @@ HackerNewsChartComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
                 templateUrl: './hacker-news-chart.component.html',
                 styleUrls: ['./hacker-news-chart.component.css']
             }]
-    }], function () { return []; }, { chart: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
-            args: ["chart"]
-        }], storyDetail: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }] }); })();
+    }], function () { return [{ type: src_app_services_dataPassing_service__WEBPACK_IMPORTED_MODULE_2__["DataPassingService"] }]; }, null); })();
 
 
 /***/ }),
@@ -380,11 +352,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HackerNewsDashBoardComponent", function() { return HackerNewsDashBoardComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var src_app_models_story_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/models/story.model */ "./src/app/models/story.model.ts");
-/* harmony import */ var src_app_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/hacker-news.service */ "./src/app/services/hacker-news.service.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _hacker_news_chart_hacker_news_chart_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hacker-news-chart/hacker-news-chart.component */ "./src/app/hacker-news/hacker-news-chart/hacker-news-chart.component.ts");
-/* harmony import */ var src_app_hacker_news_pipes_hostFromUrl_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/hacker-news/pipes/hostFromUrl.pipe */ "./src/app/hacker-news/pipes/hostFromUrl.pipe.ts");
-/* harmony import */ var src_app_hacker_news_pipes_getHoursFromDate_pipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/hacker-news/pipes/getHoursFromDate.pipe */ "./src/app/hacker-news/pipes/getHoursFromDate.pipe.ts");
+/* harmony import */ var src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/data.enums */ "./src/app/enums/data.enums.ts");
+/* harmony import */ var src_app_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/hacker-news.service */ "./src/app/services/hacker-news.service.ts");
+/* harmony import */ var src_app_services_dataPassing_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/dataPassing.service */ "./src/app/services/dataPassing.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var _hacker_news_chart_hacker_news_chart_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../hacker-news-chart/hacker-news-chart.component */ "./src/app/hacker-news/hacker-news-chart/hacker-news-chart.component.ts");
+/* harmony import */ var src_app_hacker_news_pipes_hostFromUrl_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/hacker-news/pipes/hostFromUrl.pipe */ "./src/app/hacker-news/pipes/hostFromUrl.pipe.ts");
+/* harmony import */ var src_app_hacker_news_pipes_getHoursFromDate_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/hacker-news/pipes/getHoursFromDate.pipe */ "./src/app/hacker-news/pipes/getHoursFromDate.pipe.ts");
+
+
 
 
 
@@ -397,43 +373,43 @@ function HackerNewsDashBoardComponent_tr_13_Template(rf, ctx) { if (rf & 1) {
     const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "tr");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "a", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "a", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "td", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "td", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "a", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "a", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HackerNewsDashBoardComponent_tr_13_Template_a_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3); const story_r1 = ctx.$implicit; const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r2.UpVote(story_r1.objectID); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](8, "div", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](8, "div", 10);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "a", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "a", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "span", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "span", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, " (");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "a", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "span", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "a", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "span", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](17, "getHostFromUrl");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, ") ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "span", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "span", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "by ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "b");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "a", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "a", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](23);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](24);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](25, "getHoursFromDate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "a", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "a", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HackerNewsDashBoardComponent_tr_13_Template_a_click_26_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3); const story_r1 = ctx.$implicit; const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r4.Hide(story_r1); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](27, " Hide ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -461,25 +437,31 @@ function HackerNewsDashBoardComponent_tr_13_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](25, 10, story_r1.created_at), " [ ");
 } }
 class HackerNewsDashBoardComponent {
-    constructor(service) {
+    constructor(service, dataService) {
         this.service = service;
+        this.dataService = dataService;
         this.stories = [];
         this.pageNumber = 1;
         this.pageSize = 10;
         this.pagination = new src_app_models_story_model__WEBPACK_IMPORTED_MODULE_1__["Pagination"]();
         this.IsPrevDisable = true;
         this.IsNextDisable = false;
+        this.dataSender = new src_app_models_story_model__WEBPACK_IMPORTED_MODULE_1__["DataSender"]();
     }
     ngOnInit() {
         this.getAllStories();
     }
     getAllStories() {
         this.service.getStory(this.pageNumber, this.pageSize).subscribe(x => {
+            debugger;
             this.stories = [];
             this.stories = x.hits;
             this.pagination.page = x.page;
             this.pagination.nbPages = x.nbPages;
             this.pagination.hitsPerPage = x.hitsPerPage;
+            this.dataSender.data = this.stories;
+            this.dataSender.typeOfData = src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_2__["StoryType"].Collecion;
+            this.dataService.changeMessage(this.dataSender);
         });
     }
     getPrev() {
@@ -489,6 +471,9 @@ class HackerNewsDashBoardComponent {
         else {
             this.IsPrevDisable = false;
             this.pageNumber -= 1;
+            if (this.pageNumber == 1) {
+                this.IsPrevDisable = true;
+            }
         }
         this.getAllStories();
     }
@@ -504,22 +489,30 @@ class HackerNewsDashBoardComponent {
         this.getAllStories();
     }
     UpVote(id) {
+        debugger;
         this.service.saveVotesData(id, 1);
         var story = this.getStoryById(id);
         if (story != null && story != undefined) {
             story.points += 1;
+            //this.updatedStory = story;
+            this.dataSender.data = story;
+            this.dataSender.typeOfData = src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_2__["StoryType"].Update;
+            this.dataService.changeMessage(this.dataSender);
         }
     }
-    Hide(id) {
-        this.service.HideStory(id.objectID);
-        this.stories.splice(this.stories.indexOf(id), 1);
+    Hide(story) {
+        this.service.HideStory(story.objectID);
+        this.stories.splice(this.stories.indexOf(story), 1);
+        this.dataSender.data = story;
+        this.dataSender.typeOfData = src_app_enums_data_enums__WEBPACK_IMPORTED_MODULE_2__["StoryType"].Hide;
+        this.dataService.changeMessage(this.dataSender);
     }
     getStoryById(id) {
         return this.stories.find(x => x.objectID == id);
     }
 }
-HackerNewsDashBoardComponent.ɵfac = function HackerNewsDashBoardComponent_Factory(t) { return new (t || HackerNewsDashBoardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_2__["HackerNewsService"])); };
-HackerNewsDashBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HackerNewsDashBoardComponent, selectors: [["app-hacker-news-dash-board"]], decls: 29, vars: 5, consts: [[1, "table-responsive"], [1, "table", "table-striped", "table-sm"], [1, "headerTr"], ["scope", "col"], [4, "ngFor", "ngForOf"], ["type", "button", 1, "btn", "btn-link", 3, "disabled", "click"], ["type", "button", 1, "btn"], [3, "storyDetail"], ["href", "#", 1, "title"], [1, "title"], ["href", "#", 3, "click"], [1, "triangle-up"], ["target", "_blank", 1, "title", 3, "href"], [1, "siteLink"], ["target", "_blank", 3, "href"], [1, "sitestr"], ["href", "#", 1, "author"], ["href", "#", 1, "author", 3, "click"]], template: function HackerNewsDashBoardComponent_Template(rf, ctx) { if (rf & 1) {
+HackerNewsDashBoardComponent.ɵfac = function HackerNewsDashBoardComponent_Factory(t) { return new (t || HackerNewsDashBoardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_3__["HackerNewsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_dataPassing_service__WEBPACK_IMPORTED_MODULE_4__["DataPassingService"])); };
+HackerNewsDashBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HackerNewsDashBoardComponent, selectors: [["app-hacker-news-dash-board"]], decls: 29, vars: 4, consts: [[1, "table-responsive"], [1, "table", "table-striped", "table-sm"], [1, "headerTr"], ["scope", "col"], [4, "ngFor", "ngForOf"], ["type", "button", 1, "btn", "btn-link", 3, "disabled", "click"], ["type", "button", 1, "btn"], ["href", "#", 1, "title"], [1, "title"], ["href", "#", 3, "click"], [1, "triangle-up"], ["target", "_blank", 1, "title", 3, "href"], [1, "siteLink"], ["target", "_blank", 3, "href"], [1, "sitestr"], ["href", "#", 1, "author"], ["href", "#", 1, "author", 3, "click"]], template: function HackerNewsDashBoardComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "table", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "thead");
@@ -570,7 +563,7 @@ HackerNewsDashBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](28, "app-hacker-news-chart", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](28, "app-hacker-news-chart");
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](13);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.stories);
@@ -580,9 +573,7 @@ HackerNewsDashBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" Page Number : ", ctx.pageNumber, " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.IsNextDisable);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("storyDetail", ctx.stories);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgForOf"], _hacker_news_chart_hacker_news_chart_component__WEBPACK_IMPORTED_MODULE_4__["HackerNewsChartComponent"]], pipes: [src_app_hacker_news_pipes_hostFromUrl_pipe__WEBPACK_IMPORTED_MODULE_5__["GetHostFromUrl"], src_app_hacker_news_pipes_getHoursFromDate_pipe__WEBPACK_IMPORTED_MODULE_6__["GetHoursFromDate"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hhY2tlci1uZXdzL2hhY2tlci1uZXdzLWRhc2gtYm9hcmQvaGFja2VyLW5ld3MtZGFzaC1ib2FyZC5jb21wb25lbnQuY3NzIn0= */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _hacker_news_chart_hacker_news_chart_component__WEBPACK_IMPORTED_MODULE_6__["HackerNewsChartComponent"]], pipes: [src_app_hacker_news_pipes_hostFromUrl_pipe__WEBPACK_IMPORTED_MODULE_7__["GetHostFromUrl"], src_app_hacker_news_pipes_getHoursFromDate_pipe__WEBPACK_IMPORTED_MODULE_8__["GetHoursFromDate"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hhY2tlci1uZXdzL2hhY2tlci1uZXdzLWRhc2gtYm9hcmQvaGFja2VyLW5ld3MtZGFzaC1ib2FyZC5jb21wb25lbnQuY3NzIn0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HackerNewsDashBoardComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -590,7 +581,7 @@ HackerNewsDashBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
                 templateUrl: './hacker-news-dash-board.component.html',
                 styleUrls: ['./hacker-news-dash-board.component.css']
             }]
-    }], function () { return [{ type: src_app_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_2__["HackerNewsService"] }]; }, null); })();
+    }], function () { return [{ type: src_app_services_hacker_news_service__WEBPACK_IMPORTED_MODULE_3__["HackerNewsService"] }, { type: src_app_services_dataPassing_service__WEBPACK_IMPORTED_MODULE_4__["DataPassingService"] }]; }, null); })();
 
 
 /***/ }),
@@ -748,7 +739,7 @@ GetHostFromUrl.ɵpipe = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefinePi
 /*!***************************************!*\
   !*** ./src/app/models/story.model.ts ***!
   \***************************************/
-/*! exports provided: StoryDetails, Pagination, StoryOutput, UserDetails, CommentDetails, CommentOutput */
+/*! exports provided: StoryDetails, Pagination, StoryOutput, UserDetails, CommentDetails, CommentOutput, DataSender */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -759,6 +750,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDetails", function() { return UserDetails; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommentDetails", function() { return CommentDetails; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommentOutput", function() { return CommentOutput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataSender", function() { return DataSender; });
 class StoryDetails {
 }
 class Pagination {
@@ -771,6 +763,44 @@ class CommentDetails {
 }
 class CommentOutput extends Pagination {
 }
+class DataSender {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/services/dataPassing.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/dataPassing.service.ts ***!
+  \*************************************************/
+/*! exports provided: DataPassingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataPassingService", function() { return DataPassingService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+
+
+
+class DataPassingService {
+    constructor() {
+        this.messageSource = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
+        this.currentMessage = this.messageSource.asObservable();
+    }
+    changeMessage(message) {
+        this.messageSource.next(message);
+    }
+}
+DataPassingService.ɵfac = function DataPassingService_Factory(t) { return new (t || DataPassingService)(); };
+DataPassingService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: DataPassingService, factory: DataPassingService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DataPassingService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return []; }, null); })();
 
 
 /***/ }),
@@ -797,7 +827,7 @@ __webpack_require__.r(__webpack_exports__);
 class HackerNewsService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.apiUrl = 'http://hn.algolia.com/api/v1/';
+        this.apiUrl = 'https://hn.algolia.com/api/v1/';
         this.getStoryUrl = 'search?tags=story&page=#pageNum&hitsPerPage=#pageSize';
         this.getCommentUrl = 'search?tags=comment,story_#story&page=#pageNum&hitsPerPage=#pageSize';
         this.mapData = this.getVoteDataFromStorage();
@@ -822,7 +852,6 @@ class HackerNewsService {
         }));
     }
     saveVotesData(storyId, voteCount) {
-        debugger;
         if (this.mapData != null && this.mapData != undefined) {
             this.setVoteCount(storyId);
         }
@@ -860,7 +889,6 @@ class HackerNewsService {
         return null;
     }
     HideStory(storyId) {
-        debugger;
         if (this.hiddenStories == null || this.hiddenStories == undefined) {
             this.hiddenStories = this.getHiddenStoriesFromStorage();
         }

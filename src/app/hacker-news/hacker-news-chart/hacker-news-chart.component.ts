@@ -39,7 +39,7 @@ interface ChartOptions {
   templateUrl: './hacker-news-chart.component.html',
   styleUrls: ['./hacker-news-chart.component.css']
 })
-export class HackerNewsChartComponent implements OnInit ,OnChanges {
+export class HackerNewsChartComponent implements OnInit  {
 
   data : StoryDetails[];
   
@@ -48,13 +48,7 @@ export class HackerNewsChartComponent implements OnInit ,OnChanges {
   constructor(private dataService : DataPassingService) {
     this.data = [];
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    debugger;
-    if(changes['updatedStory']){
-      console.log(changes['updatedStory'].currentValue);
-    }
-  }
-
+  
   ngOnInit(): void {
 
     this.loadChart();
@@ -68,7 +62,7 @@ export class HackerNewsChartComponent implements OnInit ,OnChanges {
   }
   
   dataProcessor(message : DataSender){
-    debugger;
+    
     switch(message.typeOfData){
       case StoryType.Update:
 
@@ -98,7 +92,7 @@ export class HackerNewsChartComponent implements OnInit ,OnChanges {
   }
 
   loadChartData(){
-    debugger;
+    
     this.chartOptions.series = [{
       data: this.data.map(a=> a.points)
     }];
