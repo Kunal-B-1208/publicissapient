@@ -39,10 +39,11 @@ Project Components :
 
 
 * Data-Storage :
+    
     For storing votes and story-hides used localstorage of browser and which is persisted.storing votes used Map key-value collection for getting and setting values, for hiding story used simple string array and maintaing sotry id which is hided by user and when on page load check those id's from response and exclude those records from response and pass to components.
 
 ## Submission
 
  * Git : created repo in Git.
  * CI pipeline : pending.
- * Deployement : Project deployed on Heroku. [a link] https://publicis-sapient-assignment.herokuapp.com/
+ * Deployement : Project deployed on Heroku. Link : https://publicis-sapient-assignment.herokuapp.com/
