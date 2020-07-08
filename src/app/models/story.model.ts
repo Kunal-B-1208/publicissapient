@@ -38,11 +38,12 @@ export class CommentDetails
     public author:string;
     public created_at:Date;
     public comment_text :string;
+    public story_title:string;
 }
 
 export class CommentOutput extends Pagination
 {
-    public commentDetail: CommentDetails[];
+    public hits: CommentDetails[];
 }
 
 export class DataSender{

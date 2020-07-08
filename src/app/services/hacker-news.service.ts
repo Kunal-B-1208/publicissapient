@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {StoryDetails, StoryOutput} from 'src/app/models/story.model';
+import {StoryDetails, StoryOutput, UserDetails, CommentDetails, CommentOutput} from 'src/app/models/story.model';
 
-import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, forkJoin, Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -14,6 +13,7 @@ export class HackerNewsService {
    private apiUrl: string= 'https://hn.algolia.com/api/v1/';
    private getStoryUrl: string = 'search?tags=story&page=#pageNum&hitsPerPage=#pageSize';
    private getCommentUrl:string ='search?tags=comment,story_#story&page=#pageNum&hitsPerPage=#pageSize'
+   private getUserUrl:string= 'users/';
    private mapData : Map<string,number>;
    private hiddenStories: string[];
 
@@ -28,22 +28,16 @@ export class HackerNewsService {
 
     public getStory(pageNum : number, pageSize : number)
     {
+     
         var url = this.apiUrl + this.getStoryUrl
         .replace("#pageNum",pageNum.toString())
         .replace("#pageSize",pageSize.toString());
-        return this.httpClient.get<StoryOutput>(url)
-                  .pipe(
-                    map( x => {
-                      x.hits = x.hits.filter(x=> {
-                        x.points += this.getVoteCount(x.objectID)  
-                          return !this.hiddenStories.includes(x.objectID);
-                      },)
-                      return x;
-                    }),
-                    catchError( error => {
-                      return throwError( 'Something went wrong!' );
-                    })
-                  );
+
+        var storyData = this.httpClient.get<StoryOutput>(url);
+        var voteData = this.getVoteDetails();
+        var hiddenStory = this.getHiddenStories();
+
+        return  forkJoin(storyData,voteData,hiddenStory);
     }
 
     public saveVotesData(storyId: string, voteCount : number){
@@ -74,6 +68,15 @@ export class HackerNewsService {
         }
         return val;
     }
+
+    private getVoteDetails(): Observable<Map<string,number>>{
+      return of(this.mapData);
+    }
+
+    private getHiddenStories() :Observable<string[]>{
+      return of(this.hiddenStories);
+    }
+
 
     private getVoteDataFromStorage(){
       
@@ -109,6 +112,21 @@ export class HackerNewsService {
 
     private saveDataIntoLocal(key :string , value :string){
         window.localStorage.setItem(key,value);
+    }
+
+    public getUserDetails(user:string){
+      var url = this.apiUrl + this.getUserUrl + user;
+      return this.httpClient.get<UserDetails>(url);
+    }
+
+    public getCommentsByStory(story:string, pageNum : number, pageSize : number){
+      var url = this.apiUrl + this.getCommentUrl
+      .replace("#pageNum",pageNum.toString())
+      .replace("#pageSize",pageSize.toString())
+      .replace("#story",story.toString());
+
+      return this.httpClient.get<CommentOutput>(url);
+
     }
 
 

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Name : {{userDetails.username}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Created on : {{userDetails.created_at | getHoursFromDate }}</h6>
+                    <div class="card-text">
+                        About :
+                        <div [innerHtml]="userDetails.about"></div>
+                    </div>
+                    <a [routerLink]="['/home']" class="card-link">Home</a>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

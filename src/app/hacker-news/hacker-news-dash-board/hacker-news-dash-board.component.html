@@ -17,36 +17,48 @@
             </thead>
             <tbody>
               <tr *ngFor="let story of stories;">
-                   <td ><a href="#"class="title">{{story.num_comments}} </a></td> 
-                   <td class="title">{{story.points}}</td> 
-                   <td> <a href="#" (click)="UpVote(story.objectID)">
-                          <div class="triangle-up"></div>
-                        </a> 
-                   </td> 
-                   <td> 
-                    <a href="{{story.url}}" target="_blank"
-                       class="title">{{story.title}}
-                    </a>
-                    <span class="siteLink"> 
-                        (<a href="{{story.url}}" target="_blank">
-                            <span class="sitestr">{{story.url | getHostFromUrl}}</span></a>)
+                <td>
+                  <button type="button" class="btn btn-link title" (click)="getStoryCommnets(story.objectID)">
+                    {{story.num_comments}}
+                  </button>
+                </td>
+                <td class="title">
+                  <span>{{story.points}}</span></td>
+                <td>
+                  <button (click)="UpVote(story.objectID)" type="button" class="btn btn-link">
+                    <div class="triangle-up"></div>
+                  </button>
+                </td>
+                <td>
+                  <a href="{{story.url}}" target="_blank" class="title">{{story.title}}
+                  </a>
+                  <span class="siteLink">
+                    (<a href="{{story.url}}" target="_blank">
+                      <span class="sitestr">{{story.url | getHostFromUrl}}</span></a>)
+                  </span>
+                  <span class="siteLink">by
+                    <span (click)="getUserDetails(story.author)" class="author btn-link">
+                      {{story.author}}
                     </span>
-                    <span class="siteLink">by 
-                          <b><a href="#" class="author"> {{story.author}} </a></b> 
-                          {{story.created_at | getHoursFromDate}}  [ <a href="#" class="author" (click) ="Hide(story)"> Hide </a> ] 
-                    </span>
-                    
-                   </td> 
+                    {{story.created_at | getHoursFromDate}} [ <a href="#" class="author" (click)="Hide(story)"> Hide
+                    </a> ]
+                  </span>
+
+                </td>
               </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td> <button type="button"  class="btn btn-link" (click)="getPrev()" [disabled]="IsPrevDisable"><span> Prev </span></button></td>
-                    <td> <button type="button"  class="btn"> <span> Page Number : {{pageNumber}} </span></button></td>
-                    <td> <button type="button"  class="btn btn-link" (click)="getNext()" [disabled]="IsNextDisable"><span> Next </span></button></td>
-                </tr>
-            </tfoot>
+            <!-- <tfoot>
+              <tr>
+                <td> <button type="button" class="btn btn-link" (click)="getPrev()" [disabled]="IsPrevDisable"><span>
+                      Prev </span></button></td>
+                <td> <button type="button" class="btn"> <span> Page Number : {{pageNumber}} </span></button></td>
+                <td> <button type="button" class="btn btn-link" (click)="getNext()" [disabled]="IsNextDisable"><span>
+                      Next </span></button></td>
+              </tr>
+            </tfoot> -->
           </table>
+          <app-hacker-news-pagination *ngIf="pagination" [pagination]="pagination" (changePage)="navigatePage($event)">
+          </app-hacker-news-pagination>
         </div>
       </div>
     </div>
@@ -60,5 +72,3 @@
     </div>
   </div>
 </div>
-
-

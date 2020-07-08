@@ -1,0 +1,27 @@
+
+<div class="container">
+    <a [routerLink]="['/home']" class="btn btn-primary">Home</a>    
+    <h5 class="card-title">{{ story_title}}</h5>
+    <div class="card" *ngFor="let commnet of commnets;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <p>
+                        <span class="float-left">
+                            <strong>{{commnet.author}}</strong> by 
+                            {{commnet.created_at | getHoursFromDate}}
+                        </span>
+
+                    </p>
+                    <div class="clearfix"></div>
+                    <p [innerHtml]="commnet.comment_text"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <app-hacker-news-pagination *ngIf="pagination" [pagination]="pagination" (changePage)="navigatePage($event)">
+    </app-hacker-news-pagination>
+
+</div>

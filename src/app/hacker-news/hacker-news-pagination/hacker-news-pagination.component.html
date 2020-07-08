@@ -1,0 +1,15 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li [ngClass]="[ IsPrevDisable ? 'page-item disabled' : 'page-item']">
+            <button (click)="Navigate('Prev')" type="button" class="btn btn-link page-link">Prev</button>
+        </li>
+        <li class="page-item">
+            <button type="button" class="btn btn-link page-link">{{pageNumber}}</button>
+        </li>
+
+
+        <li [ngClass]="[ IsNextDisable ? 'page-item disabled' : 'page-item']">
+            <button  (click)="Navigate('Next')" type="button" class="btn btn-link page-link">Next</button>
+        </li>
+    </ul>
+</nav>
